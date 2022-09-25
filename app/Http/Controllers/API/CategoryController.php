@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Department;
 use App\Models\Product;
 use Validator;
-use App\Http\Resources\CategoryResource;
 
 class CategoryController extends BaseController
 {
@@ -19,17 +18,9 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        //
-    }
+        $categories = Category::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->sendResponse(CategoryResource::collection($categories), 'Categories retrieved successfully.');
     }
 
     /**
@@ -40,51 +31,85 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $category = Category::create($input);
+
+        return $this->sendResponse(new CategoryResource($category), 'Category created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
-    }
+        $category = Category::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+        if (is_null($category)) {
+            return $this->sendError('Category not found.');
+        }
+
+        return $this->sendResponse(new CategoryResource($category), 'Category retrieved successfully.');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, int $id)
     {
-        //
+        $input = $request->all();
+
+        $category = Category::find($id);
+
+        $validator = Validator::make($input, [
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $category->name = $input['name'];
+        $category->detail = $input['detail'];
+        $category->save();
+
+        return $this->sendResponse(new CategoryResource($category), 'Category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(int $id)
     {
-        //
+
+        $category = Category::find($id);
+
+        if  (is_null($category)) {
+            return $this->sendError('Category not found.');
+        }
+
+        $category->delete();
+
+        return $this->sendResponse([], 'Category deleted successfully.');
     }
 }
