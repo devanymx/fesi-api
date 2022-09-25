@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Models\Product;
+use App\Models\Department;
 use Validator;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\DepartmentResource;
 
-class ProductController extends BaseController
+class DepartmentController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,11 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Product::all();
+        $departments = Department::all();
 
-        return $this->sendResponse(ProductResource::collection($products), 'Products retrieved successfully.');
+        return $this->sendResponse(DepartmentResource::collection($departments), 'Departments retrieved successfully.');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,17 +35,15 @@ class ProductController extends BaseController
         $validator = Validator::make($input, [
             'name' => 'required',
             'detail' => 'required',
-            'department_id' => 'required',
-            'category_id' => 'required',
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $product = Product::create($input);
+        $department = Department::create($input);
 
-        return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
+        return $this->sendResponse(new DepartmentResource($department), 'Department created successfully.');
     }
 
     /**
@@ -56,61 +54,57 @@ class ProductController extends BaseController
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $department = Department::find($id);
 
-        if (is_null($product)) {
-            return $this->sendError('Product not found.');
+        if (is_null($department)) {
+            return $this->sendError('Department not found.');
         }
 
-        return $this->sendResponse(new ProductResource($product), 'Product retrieved successfully.');
+        return $this->sendResponse(new DepartmentResource($department), 'Department retrieved successfully.');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param int $id
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Department $department)
     {
         $input = $request->all();
 
-        $product = Product::find($id);
-
         $validator = Validator::make($input, [
             'name' => 'required',
-            'detail' => 'required'
+            'detail' => 'required',
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $product->name = $input['name'];
-        $product->detail = $input['detail'];
-        $product->save();
+        $department->name = $input['name'];
+        $department->detail = $input['detail'];
+        $department->save();
 
-        return $this->sendResponse(new ProductResource($product), 'Product updated successfully.');
+        return $this->sendResponse(new DepartmentResource($department), 'Department updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Department $department)
     {
 
-        $product = Product::find($id);
-
-        if  (is_null($product)) {
+        if  (is_null($department)) {
             return $this->sendError('Department not found.');
         }
 
-        $product->delete();
+        $department->delete();
 
-        return $this->sendResponse([], 'Product deleted successfully.');
+        return $this->sendResponse([], 'Department deleted successfully.');
     }
 }
