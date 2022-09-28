@@ -28,4 +28,10 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
     Route::resource('departments', DepartmentController::class);
     Route::resource('categories', CategoryController::class);
+
+
+    //Getting user info
+    Route::get('user', [RegisterController::class, 'user'])->name('profile');
+
+
 });
