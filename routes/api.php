@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
     Route::resource('departments', DepartmentController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('warehouse', WarehouseController::class);
 
 
     //Getting user info
