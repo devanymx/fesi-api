@@ -129,6 +129,7 @@ class WarehouseController extends BaseController
      */
     public function getProducts(int $id){
 
+        //TODO: ADD PAGINATION TO THIS SECTION, PRODUCTS COULDN'T BE MORE THAN 50
         $warehouse = Warehouse::find($id);
         $products = $warehouse->products;
         return $this->sendResponse($products, 'Products retrieved successfully.');
