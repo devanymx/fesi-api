@@ -26,10 +26,26 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group( function () {
+
+    //Products
     Route::resource('products', ProductController::class);
+
+    //Departments
     Route::resource('departments', DepartmentController::class);
+
+    //Categories
     Route::resource('categories', CategoryController::class);
+
+    //Warehouse
     Route::resource('warehouse', WarehouseController::class);
+    //Inventory from warehouse
+    Route::get('warehouse/{id}/inventory', [WarehouseController::class, 'getProducts']);
+    //Add product to warehouse
+    Route::post('warehouse/{id}/add', [WarehouseController::class, 'addProduct']);
+    //Remove product from warehouse
+    Route::post('warehouse/{id}/remove', [WarehouseController::class, 'removeProduct']);
+    //Transfer product from warehouse
+    Route::post('warehouse/{id}/transfer', [WarehouseController::class, 'transferProduct']);
 
 
     //Getting user info

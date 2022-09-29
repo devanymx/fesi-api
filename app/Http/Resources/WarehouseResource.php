@@ -22,7 +22,7 @@ class WarehouseResource extends JsonResource
             'status' => $this->status,
             'capacity' => $this->capacity,
             'current_capacity' => $this->current_capacity,
-            'products' => $this->products,
+            'manager' => $this->user->name,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

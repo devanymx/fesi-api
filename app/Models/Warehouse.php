@@ -24,13 +24,13 @@ class Warehouse extends Model
         'user_id'
     ];
 
-    public function manager()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
 }
