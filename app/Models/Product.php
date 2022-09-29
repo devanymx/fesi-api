@@ -15,7 +15,22 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail', 'department_id', 'category_id'
+        'name',
+        'detail',
+        'department_id',
+        'category_id',
+        'code',
+        'description',
+        'measurement',
+        'price',
+        'sale_price',
+        'profit',
+        'unit',
+        'minimum',
+        'maximum',
+        'taxes',
+        'image',
+        'status'
     ];
 
     public function department()
@@ -26,5 +41,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class);
     }
 }
