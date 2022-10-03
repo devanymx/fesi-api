@@ -89,6 +89,53 @@ class ProductController extends BaseController
 
         $product->name = $input['name'];
         $product->detail = $input['detail'];
+
+        if (isset($input['code'])) {
+            $product->code = $input['code'];
+        }
+        if (isset($input['department_id'])) {
+            $product->department_id = $input['department_id'];
+        }
+        if (isset($input['category_id'])) {
+            $product->category_id = $input['category_id'];
+        }
+        if  (isset($input['image'])) {
+            $product->image = $input['image'];
+        }
+        if (isset($input['price'])) {
+            $product->price = $input['price'];
+        }
+        if (isset($input['status'])) {
+            $product->status = $input['status'];
+        }
+        if (isset($input['taxes'])) {
+            $product->taxes = $input['taxes'];
+        }
+        if (isset($input['maximum'])) {
+            $product->maximum = $input['maximum'];
+        }
+        if (isset($input['minimum'])) {
+            $product->minimum = $input['minimum'];
+        }
+        if (isset($input['unit'])) {
+            $product->unit = $input['unit'];
+        }
+        if (isset($input['profit'])) {
+            $product->profit = $input['profit'];
+        }
+        if (isset($input['sale_price'])) {
+            $product->sale_price = $input['sale_price'];
+        }
+        if (isset($input['measurement'])) {
+            $product->measurement = $input['measurement'];
+        }
+        if  (isset($input['description'])) {
+            $product->description = $input['description'];
+        }
+        if (isset($input['profit'])) {
+            $product->profit = $input['profit'];
+        }
+
         $product->save();
 
         return $this->sendResponse(new ProductResource($product), 'Product updated successfully.');
