@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController;
