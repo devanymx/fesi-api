@@ -15,6 +15,36 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail'
+        'name',
+        'detail',
+        'department_id',
+        'category_id',
+        'code',
+        'description',
+        'measurement',
+        'price',
+        'sale_price',
+        'profit',
+        'unit',
+        'minimum',
+        'maximum',
+        'taxes',
+        'image',
+        'status'
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class);
+    }
 }

@@ -52,7 +52,18 @@ class RegisterController extends BaseController
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+            return $this->sendError('Unauthorized.', ['error'=>'Unauthorized'],401);
         }
+    }
+
+    /**
+     * Login api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user()
+    {
+        $user = Auth::user();
+        return $this->sendResponse($user, 'User details.');
     }
 }
