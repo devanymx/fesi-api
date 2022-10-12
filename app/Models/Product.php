@@ -30,7 +30,8 @@ class Product extends Model
         'maximum',
         'taxes',
         'image',
-        'status'
+        'status',
+        'dealer_id',
     ];
 
     public function department()
@@ -46,5 +47,10 @@ class Product extends Model
     public function warehouses()
     {
         return $this->belongsToMany(Warehouse::class);
+    }
+
+    public function dealer()
+    {
+        return $this->belongsTo(Dealer::class);
     }
 }

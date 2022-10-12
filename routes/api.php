@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\DealerController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\WarehouseController;
 use Illuminate\Http\Request;
@@ -35,6 +36,9 @@ Route::middleware('auth:sanctum')->group( function () {
 
     //Categories
     Route::resource('categories', CategoryController::class);
+
+    //Dealers
+    Route::resource('dealers', DealerController::class);
 
     //Warehouse
     Route::resource('warehouse', WarehouseController::class);

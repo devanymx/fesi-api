@@ -78,18 +78,12 @@ class ProductController extends BaseController
 
         $product = Product::find($id);
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        if (isset($input['name'])){
+            $product->name = $input['name'];
         }
-
-        $product->name = $input['name'];
-        $product->detail = $input['detail'];
-
+        if (isset($input['detail'])){
+            $product->detail = $input['detail'];
+        }
         if (isset($input['code'])) {
             $product->code = $input['code'];
         }
@@ -134,6 +128,9 @@ class ProductController extends BaseController
         }
         if (isset($input['profit'])) {
             $product->profit = $input['profit'];
+        }
+        if (isset($input['dealer_id'])) {
+            $product->dealer_id = $input['dealer_id'];
         }
 
         $product->save();
