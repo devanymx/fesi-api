@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\DealerController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\WarehouseController;
@@ -39,6 +41,12 @@ Route::middleware('auth:sanctum')->group( function () {
 
     //Dealers
     Route::resource('dealers', DealerController::class);
+
+    //Addresses
+    Route::resource('addresses', AddressController::class);
+
+    //Clients
+    Route::resource('clients', ClientController::class);
 
     //Warehouse
     Route::resource('warehouse', WarehouseController::class);
