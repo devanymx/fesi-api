@@ -63,7 +63,6 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('clients/{id}/disable', [ClientController::class, 'disable']);
     //Enable client
     Route::get('clients/{id}/enable', [ClientController::class, 'enable']);
-    //Export clients
 
 
     //Warehouse
