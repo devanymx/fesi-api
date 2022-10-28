@@ -14,6 +14,12 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
+        if  ($this->resource->addresses->count() > 0) {
+            $addresses = AddressResource::collection($this->resource->addresses);
+        } else {
+            $addresses = null;
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -21,7 +27,7 @@ class ClientResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'details' => $this->details,
-            'addresses' => AddressResource::collection($this->address),
+            'addresses' => $addresses,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

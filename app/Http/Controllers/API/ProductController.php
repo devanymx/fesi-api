@@ -88,7 +88,10 @@ class ProductController extends BaseController
             $product->code = $input['code'];
         }
         if (isset($input['department_id'])) {
-            $product->department_id = $input['department_id'];
+            $department = Department::find($input['department_id']);
+            if ($department) {
+                $product->department_id = $input['department_id'];
+            }
         }
         if (isset($input['category_id'])) {
             $product->category_id = $input['category_id'];

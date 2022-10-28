@@ -25,7 +25,14 @@ use App\Http\Controllers\API\ProductController;
 
 Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
-    Route::post('login', 'login');
+    Route::post('login', 'login')->name('login');
+    Route::get('no-logged', function () {
+        $response = [
+            'success' => false,
+            'message' => 'Unauthenticated.',
+        ];
+        return response()->json($response, 401);
+    })->name('no-logged');
 });
 
 Route::middleware('auth:sanctum')->group( function () {
@@ -46,7 +53,18 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('addresses', AddressController::class);
 
     //Clients
+    //Export clients
+    Route::get('clients/export', [ClientController::class, 'export']);
+    //Import clients
+    Route::post('clients/import', [ClientController::class, 'import']);
+    //Clients Resource
     Route::resource('clients', ClientController::class);
+    //Disable client
+    Route::get('clients/{id}/disable', [ClientController::class, 'disable']);
+    //Enable client
+    Route::get('clients/{id}/enable', [ClientController::class, 'enable']);
+    //Export clients
+
 
     //Warehouse
     Route::resource('warehouse', WarehouseController::class);

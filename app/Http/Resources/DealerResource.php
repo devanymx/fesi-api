@@ -25,7 +25,7 @@ class DealerResource extends JsonResource
             'status' => $this->status ? 'Activo' : 'Inactivo',
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
-            'products' => $this->products
+            'products' => ProductResource::collection($this->products),
         ];
     }
 }
