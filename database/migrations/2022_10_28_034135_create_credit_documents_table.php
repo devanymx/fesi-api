@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->foreignId('credit_profile_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('credit_profile_id')->constrained();
             $table->timestamps();
         });
     }

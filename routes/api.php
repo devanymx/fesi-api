@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\CreditProfileController;
 use App\Http\Controllers\API\DealerController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\WarehouseController;
@@ -53,6 +54,18 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('addresses', AddressController::class);
 
     //Clients
+
+    //Credit profile
+    Route::resource('credits', CreditProfileController::class);
+    //Credit payments
+    Route::get('credits/{credit}/payments', [CreditProfileController::class, 'getPayments']);
+    //Credit documents
+    Route::get('credits/{credit}/documents', [CreditProfileController::class, 'getCreditDocuments']);
+    //Credit make payment
+    Route::post('credits/{credit}/pay', [CreditProfileController::class, 'makePayment']);
+    //Create and add document to credit
+    Route::post('credits/{credit}/documents', [CreditProfileController::class, 'addDocument']);
+
     //Export clients
     Route::get('clients/export', [ClientController::class, 'export']);
     //Import clients

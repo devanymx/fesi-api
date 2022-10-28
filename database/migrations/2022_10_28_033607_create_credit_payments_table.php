@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->float('amount');
             $table->date('date');
+            $table->foreignId('credit_profile_id')->constrained();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('credit_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('client_id')->nullable()->constrained();
             $table->float('limit')->default(0);
             $table->float('balance')->default(0);
             $table->date('cutoff_date')->nullable();
