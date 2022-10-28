@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\CreditDocumentController;
+use App\Http\Controllers\API\CreditPaymentController;
 use App\Http\Controllers\API\CreditProfileController;
 use App\Http\Controllers\API\DealerController;
 use App\Http\Controllers\API\DepartmentController;
@@ -58,13 +60,19 @@ Route::middleware('auth:sanctum')->group( function () {
     //Credit profile
     Route::resource('credits', CreditProfileController::class);
     //Credit payments
-    Route::get('credits/{credit}/payments', [CreditProfileController::class, 'getPayments']);
+    Route::get('credits/{client}/payments', [CreditProfileController::class, 'getPayments']);
     //Credit documents
-    Route::get('credits/{credit}/documents', [CreditProfileController::class, 'getCreditDocuments']);
+    Route::get('credits/{client}/documents', [CreditProfileController::class, 'getCreditDocuments']);
     //Credit make payment
-    Route::post('credits/{credit}/pay', [CreditProfileController::class, 'makePayment']);
+    Route::post('credits/{client}/pay', [CreditProfileController::class, 'makePayment']);
     //Create and add document to credit
-    Route::post('credits/{credit}/documents', [CreditProfileController::class, 'addDocument']);
+    Route::post('credits/{client}/documents', [CreditProfileController::class, 'addDocument']);
+
+    //Credit documents
+    Route::resource('documents', CreditDocumentController::class);
+
+    //Credit payments
+    Route::resource('payments', CreditPaymentController::class);
 
     //Export clients
     Route::get('clients/export', [ClientController::class, 'export']);

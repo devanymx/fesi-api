@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Resources\CreditMakePaymentResource;
 use App\Http\Resources\CreditProfileResource;
+use App\Models\Client;
 use App\Models\CreditProfile;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class CreditProfileController extends BaseController
     public function makePayment(Request $request, $id){
         $input = $request->all();
 
-        $credit = CreditProfile::find($id);
+        $credit = Client::find($id)->creditProfile;
 
         $payment = $credit->payments()->create($input);
 
@@ -51,13 +52,13 @@ class CreditProfileController extends BaseController
     }
 
     public function getPayments($id){
-        $payments = CreditProfile::find($id)->payments;
+        $payments = Client::find($id)->creditPayments;
 
         return $this->sendResponse(CreditMakePaymentResource::collection($payments), 'Payments retrieved successfully.');
     }
 
     public function getCreditDocuments($id){
-        $documents = CreditProfile::find($id)->documents;
+        $documents = Client::find($id)->creditProfile->documents;
 
         return $this->sendResponse(CreditMakePaymentResource::collection($documents), 'Documents retrieved successfully.');
     }
@@ -65,7 +66,7 @@ class CreditProfileController extends BaseController
     public function addDocument(Request $request, $id){
         $input = $request->all();
 
-        $credit = CreditProfile::find($id);
+        $credit = Client::find($id)->creditProfile;
 
         if (is_null($credit)) {
             return $this->sendError('Credit not found.',400);
