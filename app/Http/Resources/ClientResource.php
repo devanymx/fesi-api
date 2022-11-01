@@ -27,6 +27,7 @@ class ClientResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'details' => $this->details,
+            'status' => $this->status ? 'Enabled' : 'Disabled',
             'addresses' => $addresses,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),

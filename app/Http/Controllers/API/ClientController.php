@@ -13,7 +13,7 @@ use Validator;
 class ClientController extends BaseController
 {
     public function index(){
-        $clients = Client::all();
+        $clients = Client::all()->where('status', 1);
         return $this->sendResponse(ClientResource::collection($clients), 'Clients retrieved successfully.');
     }
 
